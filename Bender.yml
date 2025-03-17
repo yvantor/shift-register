@@ -1,0 +1,17 @@
+# No license needed
+
+package:
+  name: shiftreg_wrap
+  authors:
+    - "Yvan Tortorella (yvan.tortorella@chips.it)"
+
+dependencies:
+  common_cells: { git: "https://github.com/pulp-platform/common_cells.git", version: "1.38.0"}
+
+sources:
+  files:
+    - hw/shiftreg_wrap.sv
+
+    - target: simulation
+      files:
+        - target/sim/src/testbench.sv
