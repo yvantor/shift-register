@@ -57,7 +57,7 @@ module testbench;
   );
 
   logic [ShiftRegDepth-1:0][DataWidth-1:0] random;
-  initial begin
+  initial begin: data_push
     valid_in = '0;
     random = '0;
     generated_data = '0;
@@ -75,14 +75,20 @@ module testbench;
       @(posedge clk);
     end
 
+    valid_in = '0;
+    generated_data = '0;
+
+  end
+
+  initial begin: data_check
     @(posedge valid_out);
 
     for (int i = 0; i < ShiftRegDepth; i++) begin
+      @(posedge clk);
       if (consumed_data != random[i]) begin
         $display("ERROR - Received output %x differs from %x at index %d", consumed_data, random[i], i);
         $fatal;
       end
-      @(posedge clk);
     end
 
     $display("Success!");
